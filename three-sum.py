@@ -44,7 +44,40 @@ def three_sum(nums):
 
 def three_sum_2(nums):
 
-    pass
+    nums.sort()
+    triplets = []
+    low = 0
+    high = len(nums) - 1
+
+    for i in range(len(nums)-2):
+        #using two pointer squeeze method whilst fixing the first pointer (chosen element for triplet)
+        if nums[i] > 0:
+            break
+            #this means that the smallest number itself is greater than zero, so impossible for sum of three to be equal to zero
+        
+        elif i>0 and nums[i] == nums[i+1]: #skips duplicate first elements
+            continue
+        
+        low = i+1
+        high = len(nums) - 1
+
+        while low < high:
+            if nums[high] + nums[low] + nums[i] == 0:
+                triplets.append([nums[i], nums[low], nums[high]])
+                low += 1
+                high -= 1
+
+                while low < high and nums[low] == nums[low+1]: #current low is same as what next low would be, increment 
+                    low += 1
+                while low < high and nums[high] == nums[high-1]: #currnt high is same as what next high would be so adjust
+                    high -= 1
+                
+            elif nums[high] + nums[low] > -nums[i]:
+                high -= 1
+            else:
+                low += 1
+    
+    return triplets
 
 
 if __name__ == '__main__':
