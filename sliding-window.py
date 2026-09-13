@@ -1,23 +1,52 @@
 
 import math 
+
+
+#COME BACK TO THIS ONE
 #sliding window - find the longest substring with k unique characters  in a given string 
 #print longest substring possible that has exactly M unique characters 
-
+#variable window with state 
 def longest_substring(word,k):
     max_length = -10000000000000000
+    counts = {} #number of occurences within a specific window
+
+    left = 0
+    best = 0
+
+    for right, ch in enumerate(word):
+        counts[ch] = counts.get(ch,0) + 1
+
+        while len(counts) > k:
+            out = word[left]
+            counts[out] -= 1
+            if counts[out] == 0:
+                del counts[out]
+            left += 1
+        if len(counts) == k:
+            best = max(best,right - left + 1)
+
+    return best 
 
 
+#minimum size subarray sum
+#given an array of positive integers num and a positive integer target, return the minmal length of a subarray whose sum is greater than or equal to target
+def min_size_subarray_sum(nums,target):
+    best = float('inf')
+    left = 0
+    window_sum= 0
 
-    window_substr = word[:k]
-    if len(window_substr) == len(set(window_substr)):
-        max_length = len(window_substr)
-
-    repeated = len(word) - len(set(word))
-
-    for i in range(0,len(word) - repeated)
-
-
-
+    for right in range(len(nums)):
+        window_sum += nums[right] #adding the right pointer term to window sum, growing it 
+        while window_sum >= target: #while the window sum is too large, we can grow it 
+            best = min(best,right - left + 1) #seeing which length is smaller, the current best or the current window length, since it matches the condition
+            #add 1 since it is inclusive of the left and right pointers
+            window_sum -= nums[left] # removing leftmost item in the hopes that the windpw sum becomes smaller 
+            left += 1 # shrinking the window sum 
+        
+    if best != float('inf'):
+        return best 
+    else:
+        return 0
 
 if __name__ == '__main__':
     print(longest_substring("aabbcc",1))
