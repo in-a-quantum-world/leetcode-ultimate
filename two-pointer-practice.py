@@ -1,0 +1,88 @@
+
+
+#given a string reurn true if it reads the same forwards and backwards after ignoring 
+#everything that is not  a letter or diigt, and ignoring the case 
+
+def is_pallindrome(word):
+    word = word.lower()
+    
+
+    new_word = ""
+    for i in word:
+        if i.isalnum() == True and i != " ":
+            new_word += i 
+    print(new_word)
+
+
+    start = 0
+    end = len(new_word) - 1
+
+    
+    for i in range(len(new_word)//2):
+        if new_word[start] != new_word[end]:
+            return False
+        start +=1
+        end -= 1
+    
+    return True
+        
+#inefficient solution since it checks the height between all possible ones 
+def container_max_area(height):
+    max_area = 0
+    start = 0
+    end = 0
+
+    for start in range(0,len(height)-1):
+        for end in range(start,len(height)):
+            area = (end - start) * min(height[start],height[end])
+            if area >= max_area and end < len(height):
+                max_area = area
+            
+
+    return max_area
+    
+
+#new solution to move whichever pointer is at the shorter line
+#O(n) time complexity
+def better_container(height):
+    max_area = 0
+    start = 0
+    end = len(height) - 1
+
+    while start < end:
+        max_area = max(max_area, (end-start)* min(height[start],height[end]))
+        if height[start] < height[end]:
+            start += 1
+        else:
+            end -= 1
+
+    return max_area
+
+def squares_of_sorted_array(arr):
+    pass
+
+def boats(people,limit):
+    people.sort(reverse=True)
+    groups = []
+
+    start = 0
+    end = len(people) - 1
+
+    while start <= end and end < len(people):
+        
+        if start != end and people[start] + people[end] <= limit:
+            groups.append([people[start],people[end]])
+            end -= 1
+        else:
+            groups.append(people[start])
+        start += 1
+            
+    return groups
+
+if __name__== '__main__':
+    print(is_pallindrome("RA3d 3ar"))
+    print(better_container([1,8,6,2,5,4,8,3,7]))
+
+    people = [3,2,1,2]
+    limit = 3
+    print(boats(people,limit))

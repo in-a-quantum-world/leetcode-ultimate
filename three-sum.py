@@ -41,3 +41,26 @@ def three_sum(nums):
                 
 
     return triplets
+
+def three_sum_2(nums):
+
+    pass
+
+
+if __name__ == '__main__':
+    m = 2
+    d = 4
+    s = [1,2,3,4,5,6,7]
+    q1(s,d,m)
+
+
+    s = [1,2,3,4,2]
+    k = 1
+    print(pairs(s,k))
+    print("done")
+
+    a= [1,3,5]
+    b = [2,3]
+    c = [2,3]
+
+    print(triple_sum_pointers(a,b,c))
