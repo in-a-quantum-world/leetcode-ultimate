@@ -48,5 +48,65 @@ def min_size_subarray_sum(nums,target):
     else:
         return 0
 
+
+#lc209, shortest subarray with sum >= target
+def min_size_subarray_sum(nums,target):
+
+    left = 0
+    min_size = float('inf')
+    count = 0
+    window_sum = 0
+
+
+    for right in range(len(nums)):
+        window_sum += nums[right]
+        while window_sum >= target: #keep shrinking from the left hand side 
+            
+            current_size = end - start + 1
+            if current_size < min_size:
+                min_size = current_size
+
+            window_sum -= nums[left]
+            left += 1
+
+            #no point incrementing end and keeing start the same since this just exnteds the size of the window 
+            #and we are looking for min length window
+            #add the number of terms between the 'end' pointer and actual end of list
+                
+    if min_size < float('inf'):
+        return min_size
+    else:
+        return 0            
+
+
+
+#subarray with sum exactly equal to target
+def subarray_sum_to_target(nums,target):
+
+
+    left = 0
+    right = 0
+    result = []
+    window_sum = 0
+
+    for right in range(len(nums)):
+        window_sum += nums[right]
+        while window_sum >= target:
+            if window_sum == target:
+                result.append(nums[left:right+1])
+            
+            window_sum -= nums[left]
+            left += 1
+
+
+    return result
+
+
+
 if __name__ == '__main__':
     print(longest_substring("aabbcc",1))
+
+    print(subarray_sum_to_target([1,2,3,4],6))
+
+    sub = [1,2,3,4]
+    print(sub[0:3])
