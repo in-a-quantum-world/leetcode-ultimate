@@ -121,13 +121,26 @@ def better_cont_subarray_sum(nums,k):
 def contiguous_array(nums,k):
 
     order = {0:-1}
-
     rolling_sum = 0
+    max_length = -float('inf')
 
-    #use mod and store rolling mod not rolling sum
     for i in range(len(nums)):
-        rolling_sum += nums[i]
+        if nums[i] == 0:
+            rolling_sum -= 1
+        else:
+            rolling_sum += 1
+        
+        if rolling_sum in order:
+            length = i - order[rolling_sum]
+            max_length = max(max_length, length)
 
+        else:
+            order[rolling_sum] = i  
+    
+    if max_length != -float('inf'):
+        return max_length
+    else:
+        return 0
 
 
 if __name__ == '__main__':
