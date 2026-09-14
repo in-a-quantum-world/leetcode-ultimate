@@ -101,6 +101,35 @@ def trap(height):
         total += min(max_left[i], max_right[i]) - height[i]
 
     return total
+
+#grouping into buckets based off of mod k 
+def divisibleSumPairs(n,k,arr):
+    count = [0] * k 
+    for x in arr:
+        count[x%k] += 1
+
+    pairs = count[0] * (count[0] - 1) // 2
+    if k % 2 == 0:
+        c = count[k//2]
+        pairs += c * (c-1) // 2
+
+    for r in range(1, (k + 1) // 2):                 # r < k - r, each bucket pair once
+        pairs += count[r] * count[k - r]
+    return pairs
+
+
+def divsumpairs(n,k,arr):
+    count = 0
+
+
+    
+#lc2517 - maximum tastiness of candy basket
+#maximise the min, or minimise the max is usually indicative of binary search!
+def maximumTastiness(price,k):
+
+
+
+
 if __name__== '__main__':
     print(is_pallindrome("RA3d 3ar"))
     print(better_container([1,8,6,2,5,4,8,3,7]))
@@ -108,4 +137,7 @@ if __name__== '__main__':
     people = [3,2,1,2]
     limit = 3
     print(boats(people,limit))
+
+
+
  

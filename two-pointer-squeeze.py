@@ -26,6 +26,33 @@ def two_pointer_squeeze(nums,target):
 
     return valid_pairs 
 
+def two_pointer_squeeze_skeleton(nums, target):
+    nums.sort()
+    low= 0
+    high = len(nums) - 1
+
+    count = 0
+
+    while low < high:
+        s = nums[low]+nums[high]
+        if s == target:
+            count += 1
+            low += 1
+            high -= 1
+
+            while low < high and nums[low] == nums[low+1]:
+                low += 1
+            while low < high and nums[high] == nums[high-1]:
+                high -= 1
+            
+        elif target < s:
+            low += 1
+        else:
+            high -= 1
+
+    return count 
+
+
 def pairs_sum_less_than_target(nums,target):
 
     nums.sort()

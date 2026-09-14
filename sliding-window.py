@@ -27,6 +27,33 @@ def longest_substring(word,k):
 
     return best 
 
+def subarray_sum_to_target(nums,target):
+
+    left = 0
+    right = len(nums) - 1
+
+    subarrays = []
+
+    prefix_sum = {0:0}
+    cumulative_sum = 0
+
+    for i in range(len(nums)):
+        cumulative_sum += nums[i]
+        while left < right:
+            if cumulative_sum == target:
+                subarrays.append(nums[left:right])
+                left += 1
+                right -= 1
+
+                while left < right and nums[left] == nums[left-1]:
+                    left += 1
+                while left < right and nums[right] == nums[right+1]:
+                    right -= 1
+                
+            elif cumulative_sum < target:
+                left += 1
+            else:
+                right += 1
 
 #minimum size subarray sum
 #given an array of positive integers num and a positive integer target, return the minmal length of a subarray whose sum is greater than or equal to target
@@ -81,6 +108,7 @@ def min_size_subarray_sum(nums,target):
 
 
 #subarray with sum exactly equal to target
+#ONLY WORKS FOR POSITIVE ELEMENTS IN ARRAY 
 def subarray_sum_to_target(nums,target):
 
 
@@ -93,7 +121,7 @@ def subarray_sum_to_target(nums,target):
         window_sum += nums[right]
         while window_sum >= target:
             if window_sum == target:
-                result.append(nums[left:right+1])
+                result.append(nums[left:right+1]) #remember that you have to include one index higher than last idnex!!
             
             window_sum -= nums[left]
             left += 1
@@ -101,6 +129,27 @@ def subarray_sum_to_target(nums,target):
 
     return result
 
+
+def subarray_sum_to_target(nums,target):
+
+    left = 0
+    right = 0
+    #both pointers start at 0, we cannot sort the list since the order of the subarray is important
+    result = []
+    window_sum = 0 #start with a window sum of 0
+
+    for right in range(len(nums)):
+        window_sum += nums[right] #add on new element in the sliding window
+        if window_sum == target:
+            result.append(nums[left:right])
+        
+        #remove the current leftmost term in the slkiding window
+        window_sum -= nums[left]
+
+        #increment left pointer
+        left += 1
+    
+    return result 
 
 
 if __name__ == '__main__':

@@ -41,30 +41,29 @@ def permute(nums):
 def next_permutation():
     
         n = len(nums)
-        used = [False] * n #stores whether each item was used in permutation or not, then undoes this 
-        sequence = []
-        final = []
-
-        def permute():
-
-            if len(sequence) == len(nums):
-                if sequence[:] not in final:
-                    final.append(sequence[:])
-                return 
-
-            for i in range(n):
-                if used[i] == True:
-                    continue 
-                used[i] = True
-                sequence.append(nums[i])
-                permute()
-
-                #undo everything!
-                sequence.pop()
-                used[i] = False
         
-        permute()
-        return final
+        # pivot rightmost i with nums[i] < nums[i+1]
+        i = n-2
+        while i >= 0 and nums[i] >= nums[i+1]:
+            i -= 1
+        
+        if i >= 0:
+            #now go rightmost and swap smallest element larger than the pivot
+            j = n-1
+            while nums[j] <= nums[i]:
+                j -= 1
+            nums[i] = nums[j]
+            nums[j] = nums[i]
+
+        #then do the suffix after i is descending so reverse it to ascending
+        left, right = i+1, n-1
+        while left < right:
+            nums[left] = nums[right]
+            nums[right] = nums[left]
+            left += 1
+            right -= 1
+
+
 
 #using counter to keep track of unique terms
 
@@ -108,7 +107,7 @@ def permuteUniquePath(self, nums: List[int]) -> List[List[int]]:
         
         return res
 
-
+#most efficient so far!!!
 def permuteUnique(self, nums):
         
         results = []
