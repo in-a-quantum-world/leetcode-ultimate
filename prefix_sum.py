@@ -148,16 +148,29 @@ def contiguous_array(nums,k):
 #lc 238
 def product_except_self(nums):
     n = len(nums)
-    prefix = [1] * n #initialise this kind of dummy array
+    prefix_prods = [1] * n #initialise array to length n
+    suffix_prods = [1] * n
+
     for i in range(1,n):
-        prefix[i] = prefix[i-1] * nums[i-1] #everything before i 
+        prefix_prods[i] = prefix_prods[i-1] * nums[i - 1] 
+        #this is an array where each item represents the product
+        #of all numbers that came previous to the current index in the 
+        #original array
     
-    suffix = [1] * n 
     for i in range(n-2,-1,-1):
-        suffix[i] = suffix[i+1] * nums[i+1] # everything after i 
+        suffix_prods[i] = suffix_prods[i+1] * nums[i+1]
+        #this is an array where each item represents te product
+        #of all numbers that came after the current index
+        # in the original array
     
 
-    return [prefix[i] * suffix[i] for i in range(n)]
+    #multiplying the same index of the prefix array and suffix array gives you all terms multiplied
+    #except current term in original list
+    
+    for i in range(n):
+        prefix_prods[i] = prefix_prods[i] * suffix_prods[i]
+
+    return prefix_prods
 
 
 
