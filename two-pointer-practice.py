@@ -85,23 +85,22 @@ def boats(people,limit):
 def trap(height):
 
     water = []
-    max_height = []
-    min_height = []
-    water_here = [False] * len(height)
+    max_left = [0] * n
+    min_height = [0] * n
 
+    for i in range(1,len(height)):
+        max_left[i] = max(max_left[i-1], height[i])
+    
+    max_right[len(height) - 1] = height[len(height) - 1]
+    for i in range(len(height) - 2, - 2, - 1):
+        max_right[i] = max(max_right[i+1], height[i])
 
-    for i in range(1,len(height)-1):
-        if height[i] < height[i-1] and height[i] < height[i+1]:
-            #rain water will fill in here 
-            water_here[i] = True
-        max_left[i] = max(height[0:i]) #maximum height to the left pof current pos 
-        max_right[i] = max(height[i:len(height)-1]) #maximum height to the right of current pos e
-        water[i] = min(max_left[i],max_right[i] - height[i])
+    total = 0
 
-    total_water = sum(water[:])
+    for i in range(len(height)):
+        total += min(max_left[i], max_right[i]) - height[i]
 
-    return total_water
-
+    return total
 if __name__== '__main__':
     print(is_pallindrome("RA3d 3ar"))
     print(better_container([1,8,6,2,5,4,8,3,7]))
@@ -109,3 +108,4 @@ if __name__== '__main__':
     people = [3,2,1,2]
     limit = 3
     print(boats(people,limit))
+ 
