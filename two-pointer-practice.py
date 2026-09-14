@@ -79,6 +79,29 @@ def boats(people,limit):
             
     return groups
 
+
+#lc42 trapping rain water
+#using two preifx-max arrays, O(n) time and O(n) space
+def trap(height):
+
+    water = []
+    max_height = []
+    min_height = []
+    water_here = [False] * len(height)
+
+
+    for i in range(1,len(height)-1):
+        if height[i] < height[i-1] and height[i] < height[i+1]:
+            #rain water will fill in here 
+            water_here[i] = True
+        max_left[i] = max(height[0:i]) #maximum height to the left pof current pos 
+        max_right[i] = max(height[i:len(height)-1]) #maximum height to the right of current pos e
+        water[i] = min(max_left[i],max_right[i] - height[i])
+
+    total_water = sum(water[:])
+
+    return total_water
+
 if __name__== '__main__':
     print(is_pallindrome("RA3d 3ar"))
     print(better_container([1,8,6,2,5,4,8,3,7]))
