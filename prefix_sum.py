@@ -143,5 +143,23 @@ def contiguous_array(nums,k):
         return 0
 
 
+#product of array except itself
+#no division allowed yayyy
+#lc 238
+def product_except_self(nums):
+    n = len(nums)
+    prefix = [1] * n #initialise this kind of dummy array
+    for i in range(1,n):
+        prefix[i] = prefix[i-1] * nums[i-1] #everything before i 
+    
+    suffix = [1] * n 
+    for i in range(n-2,-1,-1):
+        suffix[i] = suffix[i+1] * nums[i+1] # everything after i 
+    
+
+    return [prefix[i] * suffix[i] for i in range(n)]
+
+
+
 if __name__ == '__main__':
     print(prefix_sum2([3,1,2,5,4],8))

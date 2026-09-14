@@ -120,9 +120,31 @@ def divisibleSumPairs(n,k,arr):
 
 def divsumpairs(n,k,arr):
     count = 0
+    arr.sort()
+
+    hashmap = {}
+
+    for i in range(n):
+        mod_value = arr[i] % k 
+        desired = (k - mod_value) % k 
+
+        if desired in hashmap:
+            count += hashmap.get(desired,0)
+        
+        if mod_value in hashmap:
+            hashmap[mod_value] = hashmap.get(mod_value,0) + 1
+        
+        else:
+            hashmap[mod_value] = 1
+    
+
+    return count
 
 
     
+
+
+
 #lc2517 - maximum tastiness of candy basket
 #maximise the min, or minimise the max is usually indicative of binary search!
 def maximumTastiness(price,k):
