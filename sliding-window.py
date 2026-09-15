@@ -151,6 +151,29 @@ def subarray_sum_to_target(nums,target):
     
     return result 
 
+def pallindromic_substrings(s):
+
+    #expand from the centre
+    n = len(s)
+    count = 0
+
+    for centre in range(2*n - 1):
+        left = centre / 2  
+        right = left + centre%2
+
+        while left >= 0  and right < n and s[right] == s[left]: #checks if there are anyu more sols with same centre 
+            #but first adds 1 to count since we found one to enter the while loop
+            count += 1
+            right += 1
+            left -=1
+    
+    
+    return count
+
+#now for a dynamic programming approach!
+def pallindromic_substr_dp(s):
+    n = len(s)
+    count = 0
 
 if __name__ == '__main__':
     print(longest_substring("aabbcc",1))
