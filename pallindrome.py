@@ -61,11 +61,8 @@ def pallindromic_substr_dp(s):
         count += 1 
 
     for i in range(n-1):
-        if s[i] == s[i+1] == True:
-            dp[i][i+1] = True 
-            count += 1
-        else:
-            dp[i][i+1] = False
+        dp[i][i + 1] = (s[i] == s[i + 1])
+        count += 1 if dp[i][i + 1] else 0
     
     #iterates over all substrings of length 3 to n, checking if each substr is a pallindrome
     #using dyamic programming and then updating answer accordingly 

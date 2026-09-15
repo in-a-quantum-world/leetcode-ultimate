@@ -151,6 +151,46 @@ def subarray_sum_to_target(nums,target):
     
     return result 
 
+def subarray_div_by_k(nums,k):
+
+    #makes use ofp prefix sum
+    count = {0:1} #kry will be the prefix, value is how many times it has occured in the rolling total
+    prefix_sum = 0
+    result = 0
+
+    for x in nums:
+        prefix = (prefix+x) % k # finding new predix and modding
+        result += count.get(prefix,0)  #iof prefix has already o
+        count[prefix] = count.get(prefix,0) + 1
+    
+    return result
+
+
+
+
+def longest_substring_most_two_unique_chars(s):
+
+    char_count = {}
+
+    left = 0
+    max_length = -float('inf')
+
+    for right in range(0,len(s)):
+        char_count[s[right]] = char_count.get(s[right],0) + 1
+
+        print(char_count)
+        print("right, left: ",right,left)
+        while len(char_count) > 2:
+            left_char = s[left]
+            char_count[left_char] -= 1
+
+            if char_count[left_char] == 0:
+                del char_count[left_char]
+            left += 1
+        
+        max_length = max(max_length,right-left+1)
+
+    return max_length
 
 if __name__ == '__main__':
     print(longest_substring("aabbcc",1))
@@ -159,3 +199,5 @@ if __name__ == '__main__':
 
     sub = [1,2,3,4]
     print(sub[0:3])
+
+    print(longest_substring_most_two_unique_chars('ecba'))
