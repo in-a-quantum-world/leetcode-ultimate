@@ -49,18 +49,37 @@ def pallindromic_substrings(s):
 
 #now for a dynamic programming approach!
 def pallindromic_substr_dp(s):
+    #initialises variables n and count
     n = len(s)
     count = 0
 
-    for centre in range(2*n - 1):
-        left = centre / 2
-        right = left + centre % 2
-        while left >= 0 and right < n and s[right] == s[left]:
+    #create a 2d boolean array dp of size n times n where dp[i][j] indicates whether the substring from i to j is pallindrome
+    dp = [[False] *n for _ in range(n)]
+
+    for i in range(n):
+        dp[i][i] = True #each individual element is a pallindrome after all so all diagonal elements ar true
+        count += 1 
+
+    for i in range(n-1):
+        if s[i] == s[i+1] == True:
+            dp[i][i+1] = True 
             count += 1
-            left -= 1
-            right += 1
+        else:
+            dp[i][i+1] = False
     
-    return count 
+    #iterates over all substrings of length 3 to n, checking if each substr is a pallindrome
+    #using dyamic programming and then updating answer accordingly 
+    for length in range(3,n+1):
+        for i in range(n-length +1):
+            j = i + length - 1
+            dp[i][j] = dp[i+1][j-1] and (s[i] == s[j])
+            if dp[i][j] == True:
+                count += 1 if dp[i][j] else 0
+    
+    return count
+            
+    
+
 
 
 #manacher algorithm
