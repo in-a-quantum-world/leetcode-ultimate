@@ -36,7 +36,7 @@ def three_sum(nums):
                     low += 1
                 else:
                     high -= 1
-                    
+
     return triplets
 
 
@@ -77,7 +77,14 @@ def three_sum_2(nums):
     
     return triplets
 
+#lc 16
+def three_sum_closest():
 
+    pygame.Surface._pixels_address
+
+#lc 259
+def three_sum_smaller(nums,target):
+    #fill in solution!
 if __name__ == '__main__':
     m = 2
     d = 4
