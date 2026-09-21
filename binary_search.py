@@ -72,22 +72,39 @@ def rotated_search(nums, target):
 
 def better_rotated_search(nums,target):
 
-    pivot = 0
+    n = len(nums)
     left = 0
     right = len(nums) - 1
 
-
     while left <= right:
-        if nums[left] >= nums[right]:
-            #pivot lies in thsi range 
-            if right == left + 1:
-                pivot = right
-                break
-            #since pivot has not yet been ound, continue to squeeze the gap
-            left += 1
-            right -= 1
-
+        mid = (left+right)//2
+        if nums[mid] > nums[-1]:
+            left = mid + 1
         else:
-            left += 1
+            right = mid - 1
 
+    
+    #separate doing binary search over the right and left sublists
+
+    def bin_search(left_bound,right_bound,target):
+        left = left_bound
+        right = right_bound
+
+        while left <= right:
+            mid = (left+right)//2
+            if nums[mid] == target:
+                return mid 
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        
+        return -1
+    
+    #do bin search opver elements on the pivot element's left
+    answer = bin_search(0,left-1,target)
+    if answer != -1:
+        return answer
+    
+    bin_search(left,len(nums)-1,target)
     
