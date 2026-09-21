@@ -9,38 +9,36 @@ def three_sum(nums):
     nums.sort()
     triplets = []
 
-    #two pointer squeeze technique - iterate i through the array and then use two other pointers whose items sum to 0
+    #decompose the problem - apply two sum solution to it!
 
     for i in range(len(nums)):
-        #check if the value at the first index is positive or negative to determine whether there are actually any numbers fit for a sol
-        if nums[i] > 0:
+        if i > 0:
             break
-        elif i > 0 and nums[i] == nums[i-1]:
-            #this will generate duplicate solutions
-            #so just continue
-            continue
+            #if first number is greater than zero then no further numbers will give a sum equal to 0 since 
+            #list is sorted in asc order
+        elif i == 0 or nums[i-1] != nums[i]: #prevent duplifcate solutions
 
-        low= i+1
-        high = n-1
-        for j in range(i,len(nums)):
-            new_nums = nums[i+1:]  
-            if nums[i] + nums[low] + nums[high] == 0:
-                triplets.append([nums[i],nums[low],nums[high]])
-                #then squeeze low and high
-                low += 1
-                high -= 1
-                while low < high and nums[low] == nums[low-1]:
+            low = i+1
+            high = len(nums) - 1
+
+            while low < high:
+                s = nums[i] + nums[low] + nums[high]
+                if s == 0:
+                    triplets.append([nums[i], nums[low], nums[high]])
+
                     low += 1
-                while low < high and nums[high] == nums[high+1]:
                     high -= 1
-            
-            elif sum < 0:
-                low += 1
-            else:
-                high -= 1
-                
 
+                    while low < high and nums[low - 1] == nums[low]:
+                        low += 1
+                
+                elif s < 0:
+                    low += 1
+                else:
+                    high -= 1
+                    
     return triplets
+
 
 def three_sum_2(nums):
 
