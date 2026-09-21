@@ -108,3 +108,6 @@ def better_rotated_search(nums,target):
     
     bin_search(left,len(nums)-1,target)
     
+#lc81 search in rotated sorted array II
+#just returns whether it is in array or not,m exact same
+#just another opportunity to practife ig 
