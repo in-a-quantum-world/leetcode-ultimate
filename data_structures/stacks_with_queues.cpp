@@ -110,7 +110,7 @@ public:
 }
 
 //now for a stack using pointers specifically
-
+//essentially creating a linked list
 struct Node{
     int value;
     Node* next; //points to the node below this one
@@ -128,12 +128,14 @@ public:
     }
 
     void push(int val){
+        if (full()){
+            cout << "stack is full" << endl;
+        }
         Node* n = new Node; //make a new node on the heap
         n->value = v;
         n->next = head; //it sits on top opf the old top
         head = n; //it is now the top yayy
         ++count;
-
     }
 
     void pop(){
@@ -143,23 +145,17 @@ public:
         delete old;
         --count;
         //freeing the old top
-
-
     }
 
     int top(){
         return head->value;
-
     }
 
     bool empty(){
         return head == nullptr; //returns true if the head is nullptr meaning the stack is empty
-
-
     }
 
     bool full(){
         return count == max_size;
-
     }
 }
