@@ -77,6 +77,11 @@ class MaxStack2:
 #ikr 
 
 import heapq #got to thank this module whart can i say
+#its a minheap though not a maxheap
+#so when you want to max use of maxheap properties like how finding the max value in a heap is O(1) time complexity
+#yopu would need to actually store the negation of each entry instead!
+
+
 class Node:
     def __init__(self,val,the_id):
         self.val = val 
@@ -135,3 +140,48 @@ class MaxStack:
         _, _, node = heapq.heappop(self.heap)
         self._unlink(node)             # O(1) because we hold a pointer to it
         return node.val
+
+
+#this version was not actually pssing all text cases, only 164/166
+#so thuis version implements lazy deletion to saveruntime
+
+def MaxStackBetter():
+
+    def __init__(self):
+        self.stack = []
+        self.heap = []
+        self.removed = set() #these can hold the ids which are removed from the other structure
+        self.count = 0
+
+    def push(self,x):
+        self.stack.append((x,self.count)) #adding the value and the id as such
+        #then we use a heap for the next one since we want the values to be stored as max heap data strcuture
+        #and negating all values since heapq is minheap nstructure
+
+        heapq.heappush(self.heap, (-x, -self.count)) #self,coiunt is also negative here for same reason
+        self.count += 1
+    
+    def _clean_stack(self):
+        #emptying the stack after popMax removed the 
+        while self.stack[-1][1] in self.removed:
+            self.removed.remove(self.stack.pop()[1])
+        
+    def _clean_heap(self):
+        while -self.heap[0][1] in self.removed:
+            self.removed.remove(-heapq.heappop(self.heap)[1])
+    
+    def pop(self):
+        self._clean_stack()
+        x,i = self.stack.pop()
+        self.removed.add(i)
+        return x 
+
+    def top(self):
+        self._clean_stack()
+        return self.stack[1][0]
+    
+    def peekMax(self):
+        self._clean.heap()
+        x,i = heapq.heappop(self.heap)
+        self.renoved.add(-i)
+        return -x
