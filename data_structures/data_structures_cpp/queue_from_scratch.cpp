@@ -73,3 +73,79 @@ int main() {
         q.dequeue();
     }
 }
+
+
+
+//here we go again
+struct Node2{
+    int value;
+    Node2* next;
+};
+
+class pointerQueue2{
+private:
+    Node* head = nullptr;
+    Node* tail = nullptr;
+
+    size_t max_size;
+    size_t count = 0;
+
+public:
+    PointerQueue(size_t max): max_size(max){
+
+    }
+
+    ~PointerQueue(){
+        while (!empty()){
+            dequeue();
+        }
+    }
+
+    void enqueue(int value){
+        if (full()){
+            cout << "queue is full" << endl;
+
+        }
+
+        Node* n = new Node;
+        n->value = v;
+        n->next = nullptr;
+
+        if (empty()){
+            head = n;
+            tail = n;
+
+        } else{
+            tail->next = n;
+            tail = n; //tail is now this new node which we created
+        }
+        ++count;
+    }
+
+    void dequeue(){
+        if (empty()){
+            return;
+        } else {
+            Node* old = head;
+            head = head->next;
+            delete old;
+            --count;
+
+            if (head == nullptr){
+                tail = nullptr; //queue just became empty since webve dequeued everything
+            }
+        }
+    }
+
+    int peek(){
+        return head->value;
+    }
+
+    bool empty(){
+        return head == nullptr;
+    }
+
+    bool full(){
+        return count == max_size;
+    }
+};
