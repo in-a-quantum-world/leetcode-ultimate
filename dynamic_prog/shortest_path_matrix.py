@@ -34,11 +34,11 @@ def minpath(grid):
 
 #so dp(j) = grid(i,j) + min(dp(j),dp(j+1))
 
-def minpath(grid):
+def minpath2(grid):
     m = len(grid)
     n = len(grid[0])
 
-    dp = [0 for _ in range(len(grid[0]))]
+    dp = [0 for _ in range(len(grid[0]))] #grid of zeroes instead, matchhes number of columns 
 
     for i in range(m - 1,-1,-1):
         for j in range(n-1,-1,-1):
@@ -50,6 +50,29 @@ def minpath(grid):
                 dp[j] = grid[i][j] + min(dp[j], dp[j+1])
 
             else:
-                dp[j] = grid[i][j]
+                dp[j] = grid[i][j] #column is updated to be equal to the last value (target value)
 
     return dp[0]
+
+#well is it possible to do it in constant time instead?
+#duhhhh
+
+
+def minpath3(grid):
+    m = len(grid)
+    n = len(grid[0])
+
+    #just use the grid itself....
+
+    for i in range(m-1,-1,-1):
+        for j in range(n-1,-1,-1):
+            if i == m-1 and j != n-1:
+                grid[i][j] += grid[i][j+1]
+            elif i != m-1 and j == n-1:
+                grid[i][j] += grid[i+1][j]
+            elif i != m-1 and j != n-1:
+                grid[i][j] += min(grid[i][j+1],grid[i+1][j])
+
+    
+
+    return grid[0][0]
