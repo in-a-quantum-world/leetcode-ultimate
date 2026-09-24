@@ -109,3 +109,57 @@ public:
 
 }
 
+//now for a stack using pointers specifically
+
+struct Node{
+    int value;
+    Node* next; //points to the node below this one
+};
+
+class PointerStack(){
+private:
+    Node* head = nullptr; //top of stack
+    std::size_t count = 09
+    std::size_t max_size;
+
+public:
+    Stack(std::size_t max) : max_size(max){
+        while (!empty()) pop(); //if its not already empty, keep emptying it until it is 
+    }
+
+    void push(int val){
+        Node* n = new Node; //make a new node on the heap
+        n->value = v;
+        n->next = head; //it sits on top opf the old top
+        head = n; //it is now the top yayy
+        ++count;
+
+    }
+
+    void pop(){
+        if (empty()) return;
+        Node* old = head; //remembering the top
+        head = head->next; //moving it one down
+        delete old;
+        --count;
+        //freeing the old top
+
+
+    }
+
+    int top(){
+        return head->value;
+
+    }
+
+    bool empty(){
+        return head == nullptr; //returns true if the head is nullptr meaning the stack is empty
+
+
+    }
+
+    bool full(){
+        return count == max_size;
+
+    }
+}
