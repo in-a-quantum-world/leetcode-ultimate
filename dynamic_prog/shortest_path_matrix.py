@@ -57,7 +57,7 @@ def minpath2(grid):
 #well is it possible to do it in constant time instead?
 #duhhhh
 
-
+#just making changes to the grid matrix thing itself
 def minpath3(grid):
     m = len(grid)
     n = len(grid[0])
